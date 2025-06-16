@@ -1,0 +1,71 @@
+{
+  "kind": "collectionType",
+  "collectionName": "metal_reviews",
+  "info": {
+    "singularName": "metal-review",
+    "pluralName": "metal-reviews",
+    "displayName": "MetalReview"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true
+    },
+    "Band": {
+      "type": "string",
+      "required": true
+    },
+    "Review": {
+      "type": "richtext",
+      "required": true
+    },
+    "Albumcover": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag.tag",
+      "inversedBy": "metal_reviews"
+    },
+    "Rating": {
+      "type": "integer"
+    },
+    "Good": {
+      "type": "integer"
+    },
+    "Okay": {
+      "type": "integer"
+    },
+    "Bad": {
+      "type": "integer"
+    },
+    "BannerReview": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Writer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "metal_reviews"
+    }
+  }
+}
