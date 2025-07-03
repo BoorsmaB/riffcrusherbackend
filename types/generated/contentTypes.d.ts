@@ -448,6 +448,7 @@ export interface ApiMetalReviewMetalReview extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    votes: Schema.Attribute.Relation<'oneToMany', 'api::vote.vote'>;
     Writer: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
@@ -479,6 +480,35 @@ export interface ApiTagTag extends Struct.CollectionTypeSchema {
     >;
     name: Schema.Attribute.UID;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiVoteVote extends Struct.CollectionTypeSchema {
+  collectionName: 'votes';
+  info: {
+    displayName: 'Vote';
+    pluralName: 'votes';
+    singularName: 'vote';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::vote.vote'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    review: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::metal-review.metal-review'
+    >;
+    type: Schema.Attribute.Enumeration<['Good', 'Okay', 'Bad']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1000,6 +1030,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::metal-review.metal-review': ApiMetalReviewMetalReview;
       'api::tag.tag': ApiTagTag;
+      'api::vote.vote': ApiVoteVote;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

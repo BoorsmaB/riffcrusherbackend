@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "votes",
+  "info": {
+    "singularName": "vote",
+    "pluralName": "votes",
+    "displayName": "Vote"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "review": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::metal-review.metal-review",
+      "inversedBy": "votes"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Good",
+        "Okay",
+        "Bad"
+      ]
+    }
+  }
+}
